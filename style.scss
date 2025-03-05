@@ -1,0 +1,529 @@
+@import url("https://fonts.googleapis.com/css?family=Barlow+Condensed:300,400,500,600,700,800,900|Barlow:300,400,500,600,700,800,900&display=swap");
+
+$font-01: "Barlow",
+    sans-serif;
+$font-02: "Barlow Condensed",
+    sans-serif;
+
+$m-01: #8ae6fb;
+$m-02: #FFEDC0;
+
+// $bg-01: #695681;
+// $bg-02: #36184F;
+// $bg-03: #32243E;
+$bg-01: #F25C5C; // 淺珊瑚紅（柔和且明亮的紅色）
+$bg-02: #E60012; // 鮮明的紅色（主要顏色）
+$bg-03: #C22E2E; // 朱紅色（較深且鮮明的紅色）
+
+$g-01: linear-gradient(90deg, #FFEDC0 0%, #87ff9f 100%);
+$g-02: linear-gradient(90deg, #8077EA 20%, #EB73FF 80%);
+
+$cubic: cubic-bezier(0.4, 0.35, 0, 1.53);
+$cubic2: cubic-bezier(0.18, 0.89, 0.32, 1.15);
+
+$circleShadow: inset 5px 20px 40px rgba($bg-02, 0.25),
+    inset 5px 0px 5px rgba($bg-03, 0.3),
+    inset 5px 5px 20px rgba($bg-03, 0.25),
+    2px 2px 5px rgba(white, 0.2);
+
+
+@mixin sm {
+    @media screen and (max-width: 799px) {
+        @content;
+    }
+}
+
+@mixin height {
+    @media screen and (max-height:660px) {
+        @content;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li,
+button,
+a,
+i,
+input,
+body {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 0;
+    -webkit-tap-highlight-color: transparent;
+    text-decoration: none;
+    color: inherit;
+
+    &:focus {
+        outline: 0;
+    }
+}
+
+.nav {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    padding: 0;
+    height: 90px;
+    width: 100%;
+    z-index: 990;
+    margin-left: -50%;
+    transition: none;
+    background-color: white;
+}
+
+.nav-logo {
+    height: 90px;
+    width: 145px; // 增加寬度以避免圖片被擋住
+    max-width: 200px; // 增加最大寬度以避免圖片被擋住
+    background-image: url(https://www.kagome.com.tw/assets/img/layout/logo.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% auto;
+    box-sizing: border-box;
+    display: block;
+    float: left;
+    z-index: 1;
+    margin-left: 20px; // 向右移動20px
+}
+.ketch {
+    height: 100px;
+    width: auto;
+    position: absolute; // 使用絕對定位
+    left: 1; // 初始位置在左邊
+    animation: floatToRight 2s forwards;
+
+    @keyframes floatToRight {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(calc(90vw - 90%)); //平移至90%的位置
+        }
+    }
+
+    // 在動畫結束後將 float 設置為 right
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    font-family: $font-01;
+    background: $bg-01;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow-x: hidden; // 隱藏水平滾動條
+    overflow-y: hidden; // 隱藏垂直滾動條
+
+
+    .container {
+        margin: 0 auto;
+        transition: all 0.4s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        // Scene for the Parallax Effect
+        .scene {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            vertical-align: middle;
+        }
+
+        // All elements' containers
+        .one,
+        .two,
+        .three,
+        .circle,
+        .p404 {
+            width: 60%;
+            height: 60%;
+            top: 20% !important;
+            left: 20% !important;
+            min-width: 400px;
+            min-height: 400px;
+
+            .content {
+                width: 600px;
+                height: 600px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                animation: content 0.8s cubic-bezier(1, 0.06, 0.25, 1) backwards;
+
+                @keyframes content {
+                    0% {
+                        width: 0;
+                    }
+                }
+
+                // Pieces
+                .piece {
+                    width: 200px;
+                    height: 80px;
+                    display: flex;
+                    position: absolute;
+                    border-radius: 80px;
+                    z-index: 1;
+
+                    animation: pieceLeft 8s cubic-bezier(1, 0.06, 0.25, 1) infinite both;
+
+
+                    @keyframes pieceLeft {
+                        0% {}
+
+                        50% {
+                            left: 80%;
+                            width: 10%;
+                        }
+
+                        100% {}
+
+                    }
+
+                    @keyframes pieceRight {
+                        0% {}
+
+                        50% {
+                            right: 80%;
+                            width: 10%;
+                        }
+
+                        100% {}
+
+                    }
+
+                }
+            }
+
+            @include sm {
+                width: 90%;
+                height: 90%;
+                top: 5% !important;
+                left: 5% !important;
+                min-width: 280px;
+                min-height: 280px;
+            }
+
+            @include height {
+                min-width: 280px;
+                min-height: 280px;
+                width: 60%;
+                height: 60%;
+                top: 20% !important;
+                left: 20% !important;
+            }
+        }
+
+        // Text and Button container
+        .text {
+            width: 60%;
+            height: 40%;
+            min-width: 400px;
+            min-height: 500px;
+            position: absolute;
+            margin: 40px 0;
+            animation: text 0.6s 1.8s ease backwards;
+
+            @keyframes text {
+                0% {
+                    opacity: 0;
+                    transform: translateY(40px);
+                }
+            }
+
+            @include sm {
+                min-height: 400px;
+                height: 80%;
+            }
+
+            article {
+                width: 400px;
+                position: absolute;
+                bottom: 0;
+                z-index: 4;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+
+
+                @include sm {
+                    width: 100%;
+                }
+
+                p {
+                    color: white;
+                    font-size: 18px;
+                    letter-spacing: 0.6px;
+                    margin-bottom: 40px;
+                    text-shadow: 6px 6px 10px $bg-03;
+                }
+
+                button {
+                    height: 50px;
+                    width: 50px;
+                    border-radius: 50%; // 圓形按鈕
+                    border: 5.5px solid white;
+                    cursor: pointer;
+                    box-shadow: 0px 15px 20px rgba($bg-02, 0.5);
+                    z-index: 3;
+                    color: $bg-01;
+                    background-color: white;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    font-size: 16px;
+                    transition: all 0.3s ease;
+                    
+
+
+                    &:hover {
+                        box-shadow: 0px 10px 10px -10px rgba($bg-02, 0.5);
+                        transform: translateY(10px);
+                        background: $m-01;
+                        color: white;
+                    }
+                }
+            }
+        }
+
+        // The 404 Number
+        .p404 {
+            font-size: 260px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: white;
+            display: flex !important;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            z-index: 2;
+            animation: anime404 0.6s cubic-bezier(0.3, 0.8, 1, 1.05) both;
+            animation-delay: 1.2s;
+
+            @include sm {
+                font-size: 100px;
+            }
+
+            @keyframes anime404 {
+                0% {
+                    opacity: 0;
+                    transform: scale(10) skew(20deg, 20deg);
+                }
+            }
+
+            &:nth-of-type(2) {
+                color: $bg-02;
+                z-index: 1;
+                animation-delay: 1s;
+                filter: blur(10px);
+                opacity: 0.8;
+            }
+
+
+        }
+
+        // Bigger Circle
+        .circle {
+            position: absolute;
+
+            &:before {
+                content: '';
+                position: absolute;
+                width: 800px;
+                // height: 800px;
+                height: 600px; 
+
+                background-color: rgba($bg-02, 0.3);
+                // border-radius: 100%;
+                border-radius: 50%;
+
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                box-shadow: $circleShadow;
+                animation: circle 2.3s cubic-bezier(1, 0.06, 0.25, 1) backwards;
+
+
+                // @keyframes circle {
+                //     0% {
+                //         width: 0;
+                //         height: 0;
+                //     }
+                // }
+
+                @keyframes circle {
+                    0% {
+                        opacity: 0.65; // 中間透明度
+                        transform:  rotate(720deg) scale(1.1); // 轉兩圈
+                    }
+                }
+
+                @include sm {
+                    width: 400px;
+                    // height: 400px;
+                    height: 300px;
+                }
+            }
+        }
+
+        // Container 1
+        .one {
+            .content {
+
+                // Smaller Circle
+                &:before {
+                    content: '';
+                    position: absolute;
+                    width: 600px;
+                    height: 450px;
+                    background-color: rgba($bg-02, 0.3);
+                    border-radius: 50%;
+                    box-shadow: $circleShadow;
+                    animation: circle 0.8s 0.4s cubic-bezier(1, 0.06, 0.25, 1) backwards;
+                    
+                    @include sm {
+                        width: 300px;
+                        height: 200px;
+                    }
+                }
+
+                .piece {
+                    background: $g-02;
+
+                    &:nth-child(1) {
+                        right: 15%;
+                        top: 18%;
+                        height: 30px;
+                        width: 120px;
+                        animation-delay: 0.5s;
+                        animation-name: pieceRight;
+                    }
+
+                    &:nth-child(2) {
+                        left: 15%;
+                        top: 45%;
+                        width: 150px;
+                        height: 50px;
+                        animation-delay: 1s;
+                        animation-name: pieceLeft;
+                    }
+
+                    &:nth-child(3) {
+                        left: 10%;
+                        top: 75%;
+                        height: 20px;
+                        width: 70px;
+                        animation-delay: 1.5s;
+                        animation-name: pieceLeft;
+                    }
+
+                }
+
+
+            }
+        }
+
+        // Container 2
+        .two {
+            .content {
+                .piece {
+                    background: $g-01;
+
+                    &:nth-child(1) {
+                        left: 0%;
+                        top: 25%;
+                        height: 40px;
+                        width: 125px;
+                        animation-delay: 0.8s;
+                        animation-name: pieceLeft;
+                    }
+
+                    &:nth-child(2) {
+                        right: 15%;
+                        top: 35%;
+                        width: 180px;
+                        height: 50px;
+                        animation-delay: 2.5s;
+                        animation-name: pieceRight;
+                    }
+
+                    &:nth-child(3) {
+                        right: 10%;
+                        top: 80%;
+                        height: 20px;
+                        width: 160px;
+                        animation-delay: 3s;
+                        animation-name: pieceRight;
+                    }
+
+                }
+            }
+        }
+
+        // Container 3
+        .three {
+            .content {
+                .piece {
+                    background: $m-01;
+
+                    &:nth-child(1) {
+                        left: 25%;
+                        top: 35%;
+                        height: 20px;
+                        width: 80px;
+                        animation-name: pieceLeft;
+                        animation-delay: 3.5s;
+                    }
+
+                    &:nth-child(2) {
+                        right: 10%;
+                        top: 55%;
+                        width: 140px;
+                        height: 40px;
+                        animation-name: pieceRight;
+                        animation-delay: 4s;
+                    }
+
+                    &:nth-child(3) {
+                        left: 40%;
+                        top: 68%;
+                        height: 20px;
+                        width: 80px;
+                        animation-name: pieceLeft;
+                        animation-delay: 4.5s;
+                    }
+
+                }
+
+
+            }
+        }
+    }
+}
