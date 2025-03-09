@@ -8,9 +8,7 @@ $font-02: "Barlow Condensed",
 $m-01: #8ae6fb;
 $m-02: #FFEDC0;
 
-// $bg-01: #695681;
-// $bg-02: #36184F;
-// $bg-03: #32243E;
+
 $bg-01: #F25C5C; // 淺珊瑚紅（柔和且明亮的紅色）
 $bg-02: #E60012; // 鮮明的紅色（主要顏色）
 $bg-03: #C22E2E; // 朱紅色（較深且鮮明的紅色）
@@ -140,7 +138,6 @@ body {
         align-items: center;
         position: relative;
 
-        // Scene for the Parallax Effect
         .scene {
             position: absolute;
             width: 100vw;
@@ -179,7 +176,7 @@ body {
                     }
                 }
 
-                // Pieces
+               
                 .piece {
                     width: 200px;
                     height: 80px;
